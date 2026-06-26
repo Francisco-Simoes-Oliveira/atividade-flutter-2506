@@ -24,18 +24,18 @@ class Calculadora extends StatefulWidget {
 }
 
 class _CalculadoraState extends State<Calculadora> {
-  final numero1 = TextEditingController();
-  final numero2 = TextEditingController();
+  final numero = TextEditingController();
+  final porcertagem = TextEditingController();
 
   String resultado = '';
 
   void calcular() {
     setState(() {
-      if (numero1.text.isNotEmpty && numero2.text.isNotEmpty) {
-        double num = double.parse(numero1.text);
-        double procertagem = double.parse(numero2.text) / 100;
+      if (numero.text.isNotEmpty && porcertagem.text.isNotEmpty) {
+        double num = double.parse(numero.text);
+        double porcer = double.parse(porcertagem.text) / 100;
 
-        resultado = 'Vc deve pagar R\$${(num * procertagem).toString()}';
+        resultado = 'Vc deve pagar R\$${(num * porcer).toString()}';
       } else {
         resultado = 'Digite um numero';
         return;
@@ -57,14 +57,26 @@ class _CalculadoraState extends State<Calculadora> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.amber,
+                shape: BoxShape.circle,
+              ),
+              child: Text('💵', style: TextStyle(fontSize: 80)),
+            ),
+
+            SizedBox(height: 10),
             TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 hintText: 'Digite o valor da conta',
+                labelText: 'Valor da Conta',
+                labelStyle: TextStyle(fontSize: 15),
               ),
-              controller: numero1,
+              controller: numero,
               keyboardType: TextInputType.number,
             ),
             SizedBox(height: 20),
@@ -73,9 +85,11 @@ class _CalculadoraState extends State<Calculadora> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
-                hintText: 'Digite quantos % de gorjeta deseja dar',
+                hintText: 'Digite quantos % de gorjeta deseja dar: EX 10',
+                labelText: '% da Gorjeta',
+                labelStyle: TextStyle(fontSize: 15),
               ),
-              controller: numero2,
+              controller: porcertagem,
               keyboardType: TextInputType.number,
             ),
 
